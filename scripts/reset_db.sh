@@ -9,7 +9,8 @@ python manage.py migrate ridelist zero
 echo "Creating migrations"
 python manage.py makemigrations
 
-echo "Applying migrations"
+echo "Unapply and Applying migrations"
+python manage.py migrate ridelist zero
 python manage.py migrate
 
 echo "Creating bulk users"
