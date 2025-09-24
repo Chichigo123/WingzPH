@@ -13,12 +13,6 @@ echo "Unapply and Applying migrations"
 python manage.py migrate ridelist zero
 python manage.py migrate
 
-echo "Creating bulk users"
-python manage.py create_bulk_user
-
-echo "Creating bulk rides"
-python manage.py create_bulk_rides
-
 echo "Done!"
 
 read -p "Press Enter to exit..."

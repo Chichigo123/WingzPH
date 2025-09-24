@@ -24,8 +24,8 @@ The API is accessible and browsable via `/api/ridelist/`. Please see Authenticat
 ```CustomHeaderAuthentication``` : A custom header `X-EMAIL` is **required** in the request.\
 ![Screenshot of API request with custom header made in requestly](requestly.png)
 ```SessionAuthentication``` : The User must be a **Django admin** user.
-* ![Screenshot of API request made with an authenticated django admin](django_admin.png)
-*   Models: `User, Ride, Ride_Event`
+![Screenshot of API request made with an authenticated django admin](django_admin.png)
+- Models: `User, Ride, Ride_Event`
 * Utilize DRF features: \
 **Filters** - Ride.status, Ride.id_rider_email\
 ```/api/ridelist/?status=DROPOFF&id_rider__email=tanya_smith_43%40email.com```\
@@ -33,14 +33,16 @@ The API is accessible and browsable via `/api/ridelist/`. Please see Authenticat
 ```/api/ridelist/?ordering=-distance_to_pickup&longitude=600&latitude=400```\
 **Pagination** - 10 entries per page\
 ```/api/ridelist/?latitude=400&longitude=600&ordering=-distance_to_pickup&page=3```
-
 ![Screenshot of the API in DRF's browsable UI](drf_features.png)
+- Optimization and minimize SQL Queries - `django_silk` is enabled by default for profiling\
+`/silk/`
+![Screenshot of profiling via django-silk](silk.png)
 ## Getting Started
 
 ### Prerequisites
 
 *   Django
-*   npm or Yarn
+*   PostgreSQL Database
 
 ### Installation
 
@@ -60,6 +62,15 @@ https://docs.djangoproject.com/en/5.2/ref/contrib/gis/install/#platform-specific
 7. Run project\
 `python manage.py runserver`
 
+### Scripts
+After migrations have been applied the first time, you can use these helper scripts
+to reset and populate the tables with test data.
+
+* `reset_db.sh` - Resets the table User, Ride and Ride_Events
++ `clear_and_populate.sh` - Resets the table User, Ride and Ride_Events then populates the tables
+* `python manage.py clear_ridelist_tables` - Clears Ride and Ride_Event tables
++ `python manage.py create_bulk_user` - Creates test users
+* `python manage.py create_bulk_rides` - Creates test rides and ride_events
 
 ### Bonus Question
 
