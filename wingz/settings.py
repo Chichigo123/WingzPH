@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-u^@d3g69(nkde=dg2)ms)ae^@ef5dzu)m2*pm%-idn(gqez1#)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
 
 
 # Application definition
@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.gis",
     "rest_framework",
     "django_filters",
     "ridelist",
@@ -78,10 +79,17 @@ WSGI_APPLICATION = "wingz.wsgi.application"
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
+    # "default": {
+    #     "ENGINE": "django.db.backends.sqlite3",
+    #     "NAME": BASE_DIR / "db.sqlite3",
+    # }
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
+        "ENGINE": "django.contrib.gis.db.backends.postgis",
+        "NAME": "geodjango",
+        "USER": "postgres",
+        "PASSWORD": "admin",
+        "HOST": "localhost",
+    },
 }
 
 
@@ -127,10 +135,14 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 REST_FRAMEWORK = {
+    "EXCEPTION_HANDLER": "ridelist.exceptions.custom_exception_handler",
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "DEFAULT_FILTER_BACKENDS": ["django_filters.rest_framework.DjangoFilterBackend"],
-    "PAGE_SIZE": 5,
+    "PAGE_SIZE": 10,
 }
 
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/accounts/login/"
+
+OSGEO4W = r"C:\OSGeo4W"  # Adjust if your OSGeo4W path is different
+GDAL_LIBRARY_PATH = OSGEO4W + r"\bin\gdal311.dll"  # Adjust GDAL version if necessary

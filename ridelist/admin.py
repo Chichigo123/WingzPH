@@ -7,13 +7,16 @@ class UserAdmin(admin.ModelAdmin):
     list_display = ("first_name", "last_name", "role")
     ordering = ("first_name", "last_name", "role")
 
+
 class RideAdmin(admin.ModelAdmin):
     list_display = ("id_rider", "id_driver", "status", "pickup_time")
     ordering = ("-pickup_time", "status")
 
+
 class Ride_EventAdmin(admin.ModelAdmin):
     list_display = ("id_ride", "description", "created_at")
     ordering = ("id_ride", "created_at")
+    list_filter = ["id_ride__id_driver__first_name"]
 
 
 # Register your models here.

@@ -19,7 +19,7 @@ from django.contrib import admin
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 
-from ridelist.views import Ride_EventViewSet, RideViewSet, UserViewSet
+from ridelist.views import RideViewSet
 
 from .views import HomePageView
 
@@ -34,3 +34,6 @@ urlpatterns = [
 ]
 
 urlpatterns += [path("silk/", include("silk.urls", namespace="silk"))]
+
+handler500 = "rest_framework.exceptions.server_error"
+handler400 = "rest_framework.exceptions.bad_request"
