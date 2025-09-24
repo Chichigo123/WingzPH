@@ -72,6 +72,13 @@ to reset and populate the tables with test data.
 + `python manage.py create_bulk_user` - Creates test users
 * `python manage.py create_bulk_rides` - Creates test rides and ride_events
 
+### Error Handling
+* User is not authenticated - API will return the following errors:
+![Screenshot of error when not logged in](auth_error_1.png)
+![Screenshot of error user is not admin](auth_error_2.png)
++ Missing longitude and latitude when ordering by distance to pickup
+![Screenshot of error missing longitude and latitude](bad_request.png)
+
 ### Bonus Question
 
 Returns the count of Trips that took more than 1 hour from Pickup to Dropoff and we want this by Month and Driver.
