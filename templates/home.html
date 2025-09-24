@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+    <p>Hi {{ user.username }}, you are now logged in.</p>
+    {% if user.is_staff %}
+        <p>Access ridelist API <a href="api/ridelist">here.</a></p>
+    {% endif %}
+
+    <form action="{% url 'logout' %}" method="post">
+      {% csrf_token %}
+      <button type="submit">Log Out</button>
+    </form>
+{% else %}
+    <p><a href="accounts/login">Login here.</a></p>
+{% endif %}
+
+
+{% endblock %}

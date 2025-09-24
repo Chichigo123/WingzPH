@@ -14,9 +14,26 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.contrib import admin
-from django.urls import path
+from django.urls import include, path
+from rest_framework.routers import DefaultRouter
+
+from ridelist.views import RideViewSet
+
+from .views import HomePageView
+
+router = DefaultRouter()
+router.register(r"ridelist", RideViewSet)
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path("", HomePageView.as_view(), name="home"),
+    path("api/", include(router.urls)),
+    path("accounts/", include("django.contrib.auth.urls")),
+    path("admin/", admin.site.urls),
 ]
+
+urlpatterns += [path("silk/", include("silk.urls", namespace="silk"))]
+
+handler500 = "rest_framework.exceptions.server_error"
+handler400 = "rest_framework.exceptions.bad_request"
