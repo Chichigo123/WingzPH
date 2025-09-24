@@ -27,7 +27,7 @@ class MakePostGisPoint(Func):
     output_field = PointField()
 
 
-class RideViewSet(viewsets.ModelViewSet):
+class RideViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Ride.objects.all().select_related("id_rider", "id_driver")
     serializer_class = RideSerializer
     authentication_classes = [CustomHeaderAuthentication, SessionAuthentication]
@@ -71,12 +71,12 @@ class RideViewSet(viewsets.ModelViewSet):
         return queryset
 
 
-class UserViewSet(viewsets.ModelViewSet):
+class UserViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
 
-class Ride_EventViewSet(viewsets.ModelViewSet):
+class Ride_EventViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Ride_Event.objects.all()
     serializer_class = Ride_EventSerializer
 
