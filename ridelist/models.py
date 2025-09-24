@@ -44,24 +44,6 @@ class Ride(models.Model):
     def __str__(self):
         return f"{self.id_rider} - {self.status}"
 
-    def save(self, *args, **kwargs):
-        if self.pk:
-            try:
-                old_instance = Ride.objects.get(pk=self.pk)
-            except Ride.DoesNotExist:
-                old_instance = None
-        else:
-            old_instance = None
-
-        # Compare fields if an old instance exists
-        if old_instance:
-            if self.status != old_instance.status:
-                print(f"Status changed from '{old_instance.status}' to '{self.status}'")
-                # You can add further logic here, e.g., send notifications, log changes, etc.
-
-        # Call the original save method to save the instance to the database
-        super().save(*args, **kwargs)
-
 
 class Ride_Event(models.Model):
 
