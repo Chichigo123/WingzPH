@@ -6,8 +6,9 @@ from .models import User
 
 class UserAdmin(BasePermission):
     """
-        Custom permission to only allow custom authenticated User and Django admin User to access the API
+    Custom permission to only allow custom authenticated User and Django admin User to access the API
     """
+
     def has_permission(self, request, view):
         user = request.user
         if isinstance(user, User):

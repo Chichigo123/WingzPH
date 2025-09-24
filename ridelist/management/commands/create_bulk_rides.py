@@ -3,8 +3,7 @@ from datetime import datetime, timedelta
 
 from django.core.management.base import BaseCommand
 
-from ridelist.models import (Ride, Ride_Event,  # Example: import your model
-                             User)
+from ridelist.models import Ride, Ride_Event, User  # Example: import your model
 
 
 class Command(BaseCommand):
