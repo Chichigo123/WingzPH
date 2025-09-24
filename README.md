@@ -135,3 +135,23 @@ ORDER BY
 ```
 
 ![Screenshot of a sample result of query above in Postgresql](bonus_question.png)
+
+
+### Challenges and Design Desicions
+
+1. The authentication design for User is a bit challenging, since the specification does not explicitly say it should
+extend from the Django User. And one of the requirement is that only User with role='admin' can access the API.
+My understanding is that when a User makes the request, the API should be able to check the User exists with valid
+roles. But since the User table has no password and role field, it means the User is not a logged in Django User but a custom 
+User with custom Authentication.\
+I decided to use the custom DRF authentication which requires a custom header in the request `X-EMAIL` which will be
+supplied by the client to use if the User exists with role='admin'.\
+Additionally, I added a `SessionAuthentication` which allows only a Django admin user to access the API. 
+
+2. Optimizing the query for `todays_ride_events` is also challenging. When I started the project, I used the default 
+SQLite database, which is not the best database to use when making spatial queries. Initially, I tried other solution like
+`geopy`, which unfortunately, doesn't work inside `annotate`. So if I have to use that, the `distance_to_pickup` will be
+manually computed in python-level, which is not optimized thus causing slow performance.\
+During mid-project development, I have to change to PostGIS database and installation was a bit tricky. But it was worth it
+because the API reduced the number of queries.
+
